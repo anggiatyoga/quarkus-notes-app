@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  note-service:
+    container_name: quarkus-notes-app
+    image: anggiatyoga/notes-app
+    restart: on-failure
+    environment:
+      - QUARKUS_PROFILE=dev
+    ports:
+      - 8080:8080
+    depends_on:
+      - note-db
+
+  note-db:
+    container_name: mysql-note-db
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=note_db
+      - MYSQL_ROOT_PASSWORD=123
+    ports:
+      - 3306:3306
+
+networks:
+  default:
+    name: notes-app
+

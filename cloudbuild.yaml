@@ -1,0 +1,10 @@
+steps:
+  - name: maven:3.3-jdk-8
+    entrypoint: mvn
+    args: ['test']
+  - name: maven:3.3-jdk-8
+    entrypoint: mvn
+    args: ['package', '-Dmaven.test.skip=true']
+  - name: gcr.io/cloud-builder/docker
+    args: ['build', '-t', 'asia-southeast2-docker.pkg.dev/dev-project-382903/cloud-run-source-deploy/notes-app', '--build-arg=JAR_FILE=target/notes-app-1.0-SNAPSHOT.jar', '.']
+images: ['asia-southeast2-docker.pkg.dev/dev-project-382903/cloud-run-source-deploy/notes-app']
